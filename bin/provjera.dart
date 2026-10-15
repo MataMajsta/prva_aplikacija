@@ -12,15 +12,16 @@ void main() {
 
   print('Student: $ime');
   print('Vjezba: $brojVjezbe');
-  print(napomena ?? 'Bez napomene');
+  //print(napomena ?? 'Bez napomene'); - redundantno nakon izmjena traženih u zadatku
+  print(napomena);
   print(teme[0]);
   print(oznake.length);
   print(bodovi['Mia'] ?? 0);
 
   final zadaci = <Zadatak>[
-  const Zadatak(naslov: 'Instalacija', zavrsen: true),
-  const Zadatak(naslov: 'Git'),
-  const Zadatak(naslov: 'Dart'),
+    const Zadatak(naslov: 'Instalacija', zavrsen: true),
+    const Zadatak(naslov: 'Git'),
+    const Zadatak(naslov: 'Dart'),
   ];
 
   zadaci.add(const Zadatak(naslov: 'Prvi commit', zavrsen: true));
@@ -31,16 +32,18 @@ void main() {
   print('Otvorenih: ${brojOtvorenih(zadaci)}');
   print(prikazNapomene(napomena));
 
-  
   List<String> naslovi(List<Zadatak> zadaci) {
-    List<String> pomocni = zadaci.where((zadatak) => zadatak.zavrsen == false).map((zadatak) => zadatak.naslov).toList();
+    List<String> pomocni = zadaci
+        .where((zadatak) => zadatak.zavrsen == false)
+        .map((zadatak) => zadatak.naslov)
+        .toList();
     return pomocni;
   }
 
   print(naslovi(zadaci));
 
   print(prikazNapomene(null));
-  
+
   print(prikazNapomene(napomena));
 }
 
@@ -54,5 +57,5 @@ class Zadatak {
 }
 
 int brojOtvorenih(List<Zadatak> zadaci) =>
-  zadaci.where((z) => !z.zavrsen).length;
+    zadaci.where((z) => !z.zavrsen).length;
 String prikazNapomene(String? napomena) => napomena ?? 'Bez napomene';

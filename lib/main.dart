@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:prva_aplikacija/brojac.dart';
+
 void main() => runApp(const MyApp());
-  class MyApp extends StatelessWidget {
+
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
@@ -8,16 +11,17 @@ void main() => runApp(const MyApp());
       debugShowCheckedModeBanner: false,
       title: 'Prva aplikacija',
       home: Scaffold(
-        appBar: AppBar(
-        title: const Text('Moja prva aplikacija'),
-        ),
+        appBar: AppBar(title: const Text('Aplikacijski zaslon')),
         body: const Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('Student: Ime Prezime'),
-            SizedBox(height: 12),
-            Text('Dart i Flutter'),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Student: Mate Marić'),
+              SizedBox(height: 12),
+              Text('Dart i Flutter'),
+              SizedBox(height: 12),
+              Text('Želim naučiti biti jaaaako dobar programer.'),
+              Brojac(),
             ],
           ),
         ),
