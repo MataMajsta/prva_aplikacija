@@ -5,7 +5,7 @@ Future<void> main() async {
   for (var pokusaj = 1; pokusaj <= 2; pokusaj++) {
     try {
       print('Pokušaj $pokusaj: dohvaćam...');
-      final zadaci = await repo.dohvati();
+      final zadaci = await repo.dohvati().timeout(Duration(milliseconds: 300));
       
       for (final z in zadaci) {
       print('- ${z.naslov} (${z.zavrsen ? 'gotovo' : 'u tijeku'})');
