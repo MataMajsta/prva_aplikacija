@@ -4,7 +4,12 @@ class Zadatak {
   final bool zavrsen;
   final String? opis;
 
-  const Zadatak({required this.id, required this.naslov, this.zavrsen = false, this.opis = null});
+  const Zadatak({
+    required this.id,
+    required this.naslov,
+    this.zavrsen = false,
+    this.opis,
+  });
 
   factory Zadatak.fromJson(Map<String, dynamic> json) => Zadatak(
     id: json['id'] as int,
@@ -24,6 +29,6 @@ class Zadatak {
     id: id,
     naslov: naslov ?? this.naslov,
     zavrsen: zavrsen ?? this.zavrsen,
-    opis: opis ?? this.opis,
+    opis: opis,
   );
 }

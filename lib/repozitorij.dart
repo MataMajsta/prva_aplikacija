@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'zadatak.dart';
 
 class ZadatciException implements Exception {
@@ -11,6 +12,7 @@ class ZadatciException implements Exception {
 class ZadatakRepozitorij {
   /// Koliko prvih poziva dohvata treba završiti pogreškom.
   int neuspjeha;
+
   /// Ako je true, poslužitelj vraća prazan popis.
   final bool prazno;
 
@@ -29,11 +31,11 @@ class ZadatakRepozitorij {
       neuspjeha--;
       throw ZadatciException('Nema veze s poslužiteljem');
     }
-    
+
     if (prazno) return const [];
     final podaci = jsonDecode(_odgovor) as List;
     return podaci
-    .map((e) => Zadatak.fromJson(e as Map<String, dynamic>))
-    .toList();
+        .map((e) => Zadatak.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 }
