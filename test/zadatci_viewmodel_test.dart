@@ -33,4 +33,11 @@ void main() {
     vm.promijeniZavrsen(3);
     expect(vm.zavrseno, 3);
   });
+
+  test('ukloni mijenja broj zadataka', () async {
+    final vm = ZadatciViewModel(ZadatakRepozitorij());
+    await vm.ucitaj();
+    vm.ukloni(vm.zadatci.first.id);
+    expect(vm.zadatci.length, 3);
+  });
 }

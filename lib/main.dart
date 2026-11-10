@@ -113,19 +113,26 @@ class _ZadatciEkranState extends State<ZadatciEkran> {
                 itemCount: _vm.zadatci.length,
                 itemBuilder: (context, i) {
                   final z = _vm.zadatci[i];
-                  return CheckboxListTile(
-                    value: z.zavrsen,
-                    onChanged: (_) => _vm.promijeniZavrsen(z.id),
-                    title: Text(
-                      z.naslov,
-                      style: TextStyle(
-                        decoration: z.zavrsen
-                            ? TextDecoration.lineThrough
-                            : null,
+                  return Dismissible(key: ValueKey(z.id), child: 
+                    CheckboxListTile(
+                      value: z.zavrsen,
+                      onChanged: (_) => _vm.promijeniZavrsen(z.id),
+                      title: Text(
+                        z.naslov,
+                        style: TextStyle(
+                          decoration: z.zavrsen
+                              ? TextDecoration.lineThrough
+                              : null,
+                        ),
                       ),
                     ),
-                  );
-                },
+                    onDismissed: (DismissDirection direction) {
+                      setState(() {
+                        _vm.ukloni(z.id);
+                      });
+                    },
+                    );
+                  },
               );
           }
         },

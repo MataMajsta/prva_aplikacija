@@ -52,4 +52,9 @@ class ZadatciViewModel extends ChangeNotifier {
     _zadatci[i] = _zadatci[i].kopiraj(zavrsen: !_zadatci[i].zavrsen);
     notifyListeners();
   }
+
+  void ukloni(int id) {
+    final i = _zadatci.indexWhere((z) => z.id == id);
+    _zadatci.remove(_zadatci[i]);
+  }
 }
