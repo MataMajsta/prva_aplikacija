@@ -13,12 +13,14 @@ class ZadatciViewModel extends ChangeNotifier {
   final List<Zadatak> _zadatci = [];
   Stanje _stanje = Stanje.ucitavanje;
   String _poruka = '';
+  bool samoNezavrseni = false;
   UnmodifiableListView<Zadatak> get zadatci => UnmodifiableListView(_zadatci);
   Stanje get stanje => _stanje;
   String get poruka => _poruka;
   int get ukupno => _zadatci.length;
   int get zavrseno => _zadatci.where((z) => z.zavrsen).length;
   int get preostalo => ukupno - zavrseno;
+  UnmodifiableListView<Zadatak> get prikazani => UnmodifiableListView(_zadatci.where((z) => z.zavrsen == false));
   Future<void> ucitaj() async {
     _stanje = Stanje.ucitavanje;
 

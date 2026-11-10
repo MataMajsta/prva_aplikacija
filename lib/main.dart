@@ -72,6 +72,10 @@ class _ZadatciEkranState extends State<ZadatciEkran> {
             tooltip: 'Statistika',
             icon: const Icon(Icons.bar_chart),
           ),
+          Switch(value: _vm.samoNezavrseni, onChanged: (change) {setState(() {
+            _vm.samoNezavrseni = !_vm.samoNezavrseni;
+          });}
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -109,6 +113,34 @@ class _ZadatciEkranState extends State<ZadatciEkran> {
               if (_vm.zadatci.isEmpty) {
                 return const Center(child: Text('Nema zadataka'));
               }
+              if(_vm.samoNezavrseni) 
+                {return ListView.builder(
+                  itemCount: _vm.prikazani.length,
+                  itemBuilder: (context, i) {
+                    final z = _vm.prikazani[i];
+                    return Dismissible(key: ValueKey(z.id), child: 
+                      CheckboxListTile(
+                        value: z.zavrsen,
+                        onChanged: (_) => _vm.promijeniZavrsen(z.id),
+                        title: Text(
+                          z.naslov,
+                          style: TextStyle(
+                            decoration: z.zavrsen
+                                ? TextDecoration.lineThrough
+                                : null,
+                          ),
+                        ),
+                      ),
+                      onDismissed: (direction) {
+                        setState(() {
+                          _vm.ukloni(z.id);
+                        });
+                      },
+                      );
+                    },
+                );
+              }
+              else {
               return ListView.builder(
                 itemCount: _vm.zadatci.length,
                 itemBuilder: (context, i) {
@@ -126,7 +158,7 @@ class _ZadatciEkranState extends State<ZadatciEkran> {
                         ),
                       ),
                     ),
-                    onDismissed: (DismissDirection direction) {
+                    onDismissed: (direction) {
                       setState(() {
                         _vm.ukloni(z.id);
                       });
@@ -134,6 +166,7 @@ class _ZadatciEkranState extends State<ZadatciEkran> {
                     );
                   },
               );
+            }
           }
         },
       ),
