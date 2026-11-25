@@ -26,26 +26,38 @@ class SupabaseIzvor implements ZadatciIzvor {
   // Primjer za dohvati: _izvedi(() async { ... _db.from('zadatci').select() ... });
 
   @override
-  Future<List<Zadatak>> dohvati() async {
-    // select() uz order('id'); redove pretvorite u Zadatak.fromJson
-    throw UnimplementedError('dohvati');
+  Future<List<Zadatak>> dohvati() => _izvedi(() async {
+    final redovi = await _db.from('zadatci').select().order('id');
+    return redovi.map(Zadatak.fromJson).toList();
+  });
+
+  
+
+  @override
+  Future<Zadatak> dodaj(String naslov) => _izvedi(() async {
+    final red = await _db
+    .from('zadatci')
+    .insert({'naslov': naslov})
+    .select()
+    .single();
+    return Zadatak.fromJson(red);
+  });
+
+  @override
+  Future<Zadatak> postaviZavrsen(int id, bool zavrsen) async {
+    final red = await _db
+    .from('zadatci')
+    .update({'zavrsen': zavrsen})
+    .eq('id', id);
+    return Zadatak.fromJson(red);
   }
 
   @override
-  Future<Zadatak> dodaj(String naslov) async {
-    // insert({'naslov': naslov}) uz select().single()
-    throw UnimplementedError('dodaj');
-  }
-
-  @override
-  Future<void> postaviZavrsen(int id, bool zavrsen) async {
-    // update({'zavrsen': zavrsen}) uz eq('id', id)
-    throw UnimplementedError('postaviZavrsen');
-  }
-
-  @override
-  Future<void> obrisi(int id) async {
-    // delete() uz eq('id', id)
-    throw UnimplementedError('obrisi');
+  Future<int> obrisi(int id) async {
+    final red = await _db
+    .from('zadatci')
+    .delete()
+    .eq('id', id);
+    return red.status;
   }
 }
